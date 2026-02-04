@@ -6,7 +6,7 @@ from extract_markdown import extract_markdown_images, extract_markdown_links
 from split_image import split_nodes_image
 from split_link import split_nodes_link
 from text_to_text import text_to_textnodes
-
+from split_blocks import markdown_to_blocks
 
 class TestTextNode(unittest.TestCase):
     def test_eq(self):
@@ -164,7 +164,25 @@ class TestTextNode(unittest.TestCase):
             ],
             new_nodes,
         )
+    def test_markdown_to_blocks(self):
+        md = """
+This is **bolded** paragraph
 
+This is another paragraph with _italic_ text and `code` here
+This is the same paragraph on a new line
+
+- This is a list
+- with items
+"""
+        blocks = markdown_to_blocks(md)
+        self.assertEqual(
+            blocks,
+            [
+                "This is **bolded** paragraph",
+                "This is another paragraph with _italic_ text and `code` here\nThis is the same paragraph on a new line",
+                "- This is a list\n- with items",
+            ],
+        )
 if __name__ == "__main__":
     unittest.main()
 
