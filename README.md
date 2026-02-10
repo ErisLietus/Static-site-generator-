@@ -1,1 +1,1 @@
-# Static-site-genorator-
+# Static-site-generator
